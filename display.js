@@ -85,6 +85,11 @@ var P4WN_IMAGE_NAMES = [
 ];
 
 var modes = [
+  /*{
+    name: "Test",
+    bag: "KR",
+    board: "4k3/8/8/8/8/8/8/8 b - 0 1"
+  },*/
   {
     name: "Start With Nothing",
     bag: "KPRPBPNPQPNPBPRP",
@@ -174,7 +179,10 @@ function P4wn_display(target) {
 }
 
 _p4d_proto.next_bag_piece = function() {
-  if (this.bag.length == 0) return;
+  if (this.bag.length == 0) {
+    this.current_bag_piece = 0;
+    return;
+  }
 
   if (this.mode.random && this.bag[0] != "K") {
     let n = Math.floor(Math.random() * this.bag.length);
@@ -308,8 +316,8 @@ _p4d_proto.computer_move = function() {
         p4_log("retry at depth", depth, " total time:", delta);
       }
     }
-    this.move(mv[0], mv[1]);
     this.set_status();
+    this.move(mv[0], mv[1]);
   }, 10);
 };
 
@@ -371,20 +379,20 @@ _p4d_proto.refresh = function() {
     }
   }
   let bag0 = this.elements.bag[0];
-  if (this.current_bag_piece)
-    bag0.src = P4WN_IMAGE_DIR + "/" + P4WN_IMAGE_NAMES[this.current_bag_piece];
-  else bag0.style.display = "none";
+  bag0.src = P4WN_IMAGE_DIR + "/" + P4WN_IMAGE_NAMES[this.current_bag_piece || 0];
 };
 
 _p4d_proto.start_moving_piece = function(position) {
-  if(this.game_over == "stopped")
-    return;
   /*drop the currently held one, if any*/
   this.stop_moving_piece();
+  if(!this.current_bag_piece || this.game_over)
+    return;
+
   var img =
     position >= 0
       ? this.elements.pieces[this.orientation ? 119 - position : position]
       : this.elements.bag[-1 - position];
+  
   this.elements.moving_img = img;
   var old_msie = /MSIE [56]/.test(navigator.userAgent);
   img.style.position = old_msie ? "absolute" : "fixed";
@@ -397,8 +405,10 @@ _p4d_proto.start_moving_piece = function(position) {
   this.start = position;
   let updatePos = e => {
     lastMouseMove = e;
-    img.style.left = e.clientX + 1 + "px";
-    img.style.top = e.clientY - yoffset + "px";
+    if(!this.game_over){
+      img.style.left = e.clientX + 1 + "px";
+      img.style.top = e.clientY - yoffset + "px";
+    }
   };
   if (lastMouseMove) {
     updatePos(lastMouseMove);
