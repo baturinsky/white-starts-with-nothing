@@ -1,0 +1,98 @@
+.p4wn-board table{
+  border-spacing: 1px;
+}
+
+.p4wn-board td{
+  padding: 1px;
+}
+
+.p4wn-white-square {
+  background-color: #ccc;
+}
+
+.p4wn-black-square {
+  background-color:#888;
+}
+
+.p4wn-board {
+  position: relative;
+  left: 0px;
+  top: 0px;
+  /*border:1px solid red;*/
+  float: left;
+}
+
+.p4wn-log {
+  font-family: monospace;
+  white-space: pre;
+  font-size: smaller;
+  overflow: auto;
+  width: 20em;
+  height: 90%;
+  /*border:1px solid blue;*/
+}
+
+.p4wn-controls{
+  clear: both;
+  /*border:1px solid green;*/
+}
+
+.p4wn-control-button {
+  padding: 0px 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-block;
+  margin: 1px;
+}
+
+.p4wn-log-move {
+  padding: 0px 7px;
+  cursor: pointer;
+}
+
+.p4wn-wrapper{
+  /*border: 1px solid yellow;*/
+}
+
+.centered{
+  display:flex;
+  width:100%;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.bag{
+}
+
+div{
+  text-align: center;  
+}
+
+.spacer{
+  background: black;
+  width:1px;
+  margin-left:20px;
+  margin-right:20px;
+}
+
+button{
+  border: solid 1px #888;
+  height:40px;
+  cursor:pointer;
+  width:200px;
+  margin:3px;  
+  background: #fff;
+}
+
+button:hover{
+  background: #ccc;
+}
+
+.current-mode{
+  font-weight: bold;
+  border: solid 3px;
+}
+
+#ui{
+  text-align: left;
+}
